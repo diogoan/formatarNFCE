@@ -19,7 +19,7 @@ $('#tabResult tr').each(function() {
       if ($(this).hasClass('RCod')) {
         texto = texto.replace(/.*\:\s*(\d+).*/, '$1');
       } else if ($(this).hasClass('Rqtd')) {
-        texto = texto.replace(/.*\:\s*(\d+).*/, '$1');
+        texto = texto.replace('Qtde.: ', '');
       } else if ($(this).hasClass('RUN')) {
         texto = texto.replace(/.*\:\s*(\w+).*/, '$1');
       } else if ($(this).hasClass('RvlUnit')) {

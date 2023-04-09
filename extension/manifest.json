@@ -5,7 +5,10 @@
     "manifest_version": 2,
     "content_scripts": [
       {
-        "matches": ["http://nfce.sefaz.pe.gov.br/nfce-web/consNfce*"],
+        "matches": [
+            "http://nfce.sefaz.pe.gov.br/nfce-web/consNfce*",
+            "http://nfce.sefaz.pe.gov.br/nfce-web/consultarNFCe*"
+        ],
         "js": ["jquery-3.6.4.min.js", "formatar.js"]
       }
     ]
