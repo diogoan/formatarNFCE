@@ -6,7 +6,7 @@
     "content_scripts": [
       {
         "matches": ["http://nfce.sefaz.pe.gov.br/nfce-web/consNfce*"],
-        "js": ["formatar.js"]
+        "js": ["jquery-3.6.4.min.js", "formatar.js"]
       }
     ]
 }
