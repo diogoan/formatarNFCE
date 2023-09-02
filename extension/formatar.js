@@ -1,3 +1,6 @@
+let infoPart = $('#infos').find('li')[0];
+let data = infoPart.innerHTML.match(/\s*(\d{2}\/\d{2}\/\d{4})/)[0];
+
 $('#containerSis').remove();
 $('.ui-header').remove();
 $('#conteudo').children()[0].remove();
@@ -12,6 +15,8 @@ $('#tabResult tr').each(function() {
 
     // Cria uma matriz para armazenar os valores extraídos de cada linha
     let rowValues = [];
+    rowValues.push(data);
+    rowValues.push('');
 
     // Encontra os elementos filho na linha e extrai o texto deles
     $(this).find('span.txtTit, span.RCod, span.Rqtd, span.RUN, span.RvlUnit, span.valor').each(function() {
@@ -29,6 +34,8 @@ $('#tabResult tr').each(function() {
       }
       rowValues.push(texto);
     });
+
+    rowValues.splice(3, 0, '');
   
     // Remove a linha antiga
     $(this).remove();
@@ -40,5 +47,5 @@ $('#tabResult tr').each(function() {
 });
 
 $('#tabResult').prepend('<thead></thead>');
-let headValues = ['Item', 'Código', 'Qtde', 'UN', 'Vl. Unit.', 'Vl. Total'];
+let headValues = ['Data', 'Lugar', 'Item', 'Divisão', 'Código', 'Qtde', 'UN', 'Vl. Unit.', 'Vl. Total'];
 $('#tabResult thead').append('<tr><th><strong>' + headValues.join('</strong></th><th><strong>') + '</strong></th></tr>');
