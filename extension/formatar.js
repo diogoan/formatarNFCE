@@ -1,51 +1,66 @@
-let infoPart = $('#infos').find('li')[0];
-let data = infoPart.innerHTML.match(/\s*(\d{2}\/\d{2}\/\d{4})/)[0];
+function obterConteudoTabela() {
+  let infoPart = $("#infos").find("li")[0];
+  let data = infoPart.innerHTML.match(/\s*(\d{2}\/\d{2}\/\d{4})/)[0];
+  let headValues = ["Data", "Lugar", "Item", "Divisão", "Código", "Qtde", "UN", "Vl. Unit.", "Vl. Total"];
+  let conteudoTabela = headValues.join("\t") + "\n";
 
-$('#containerSis').remove();
-$('.ui-header').remove();
-$('#conteudo').children()[0].remove();
-$('#conteudo').children()[0].remove();
-$('#totalNota').remove();
-$('#infos').remove();
-$('#rodape').remove();
-$('.ui-loader').remove();
-
-// Seleciona a tabela com o ID tabResult e percorre cada linha
-$('#tabResult tr').each(function() {
-
+  // Seleciona a tabela com o ID tabResult e percorre cada linha
+  $("#tabResult tr").each(function () {
     // Cria uma matriz para armazenar os valores extraídos de cada linha
     let rowValues = [];
     rowValues.push(data);
-    rowValues.push('');
+    rowValues.push("");
 
     // Encontra os elementos filho na linha e extrai o texto deles
-    $(this).find('span.txtTit, span.RCod, span.Rqtd, span.RUN, span.RvlUnit, span.valor').each(function() {
-      var texto = $(this).text().trim();
-      if ($(this).hasClass('RCod')) {
-        texto = texto.replace(/.*\:\s*(\d+).*/, '$1');
-      } else if ($(this).hasClass('Rqtd')) {
-        texto = texto.replace('Qtde.: ', '');
-      } else if ($(this).hasClass('RUN')) {
-        texto = texto.replace(/.*\:\s*(\w+).*/, '$1');
-      } else if ($(this).hasClass('RvlUnit')) {
-        texto = texto.replace(/.*\:\s*([\d\,]+).*/, 'R$ $1');
-      } else if ($(this).hasClass('valor')) {
-        texto = 'R$ ' + texto;
-      }
-      rowValues.push(texto);
-    });
+    $(this)
+      .find(
+        "span.txtTit, span.RCod, span.Rqtd, span.RUN, span.RvlUnit, span.valor"
+      )
+      .each(function () {
+        var texto = $(this).text().trim();
+        if ($(this).hasClass("RCod")) {
+          texto = texto.replace(/.*\:\s*(\d+).*/, "$1");
+        } else if ($(this).hasClass("Rqtd")) {
+          texto = texto.replace("Qtde.: ", "");
+        } else if ($(this).hasClass("RUN")) {
+          texto = texto.replace(/.*\:\s*(\w+).*/, "$1");
+        } else if ($(this).hasClass("RvlUnit")) {
+          texto = texto.replace(/.*\:\s*([\d\,]+).*/, "R$ $1");
+        } else if ($(this).hasClass("valor")) {
+          texto = "R$ " + texto;
+        }
+        rowValues.push(texto);
+      });
 
-    rowValues.splice(3, 0, '');
-  
-    // Remove a linha antiga
-    $(this).remove();
-  
-    // Cria uma nova linha na tabela com os valores extraídos
-    if (rowValues.length > 0) {
-      $('#tabResult tbody').append('<tr><td>' + rowValues.join('</td><td>') + '</td></tr>');
-    }
-});
+    rowValues.splice(3, 0, "");
 
-$('#tabResult').prepend('<thead></thead>');
-let headValues = ['Data', 'Lugar', 'Item', 'Divisão', 'Código', 'Qtde', 'UN', 'Vl. Unit.', 'Vl. Total'];
-$('#tabResult thead').append('<tr><th><strong>' + headValues.join('</strong></th><th><strong>') + '</strong></th></tr>');
+    conteudoTabela = conteudoTabela + rowValues.join("\t") + "\n";
+  });
+  
+  return conteudoTabela;
+}
+
+function copiarTexto(textoParaCopiar){
+  var textarea = document.createElement("textarea");
+  textarea.value = textoParaCopiar;
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+      var copiado = document.execCommand("copy");
+      var mensagem = copiado ? "Texto copiado com sucesso!" : "Não foi possível copiar o texto.";
+      console.log(mensagem);
+  } catch (err) {
+      console.error("Erro ao copiar o texto:", err);
+  }
+
+  document.body.removeChild(textarea);
+}
+
+function copiarTabela() {
+  copiarTexto(obterConteudoTabela());
+  alert("Nota fiscal copiada para a Área de Transferência.");
+}
+
+$(".ui-header").append("<div id=\'copiarTabela\' class=\'txtCenter\'><a href=\'#\'>Copiar Tabela Formatada</a></div>");
+$("#copiarTabela").click(copiarTabela);

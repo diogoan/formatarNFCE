@@ -2,7 +2,7 @@
     "name": "Formatar NFCE",
     "version": "1.0",
     "description": "Código para formatar os items da Nota Fiscal Eletrônica emitidas no site http://nfce.sefaz.pe.gov.br/.",
-    "manifest_version": 2,
+    "manifest_version": 3,
     "content_scripts": [
       {
         "matches": [
