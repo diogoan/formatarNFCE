@@ -62,5 +62,15 @@ function copiarTabela() {
   alert("Nota fiscal copiada para a Área de Transferência.");
 }
 
+function copiarCodigoAcesso() {
+  let url = $('.ui-page-active').attr('data-url');
+  let code = url.match(/(\d{44})/g);
+  copiarTexto(code);
+  alert("Código de Acesso copiado para a Área de Transferência");
+}
+
 $(".ui-header").append("<div id=\'copiarTabela\' class=\'txtCenter\'><a href=\'#\'>Copiar Tabela Formatada</a></div>");
 $("#copiarTabela").click(copiarTabela);
+
+$(".ui-header").append("<div id=\'copiarCodigoAcesso\' class=\'txtCenter\'><a href=\'#\'>Copiar Código de Acesso</a></div>");
+$("#copiarCodigoAcesso").click(copiarCodigoAcesso);

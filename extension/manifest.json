@@ -1,20 +1,20 @@
 {
     "name": "Formatar NFCE",
     "version": "1.0",
-    "description": "Código para formatar os items da Nota Fiscal Eletrônica emitidas no site http://nfce.sefaz.pe.gov.br/.",
+    "description": "Código para formatar os items da Nota Fiscal Eletrônica emitidas no site https://nfce.sefaz.pe.gov.br/.",
     "manifest_version": 3,
     "content_scripts": [
       {
         "matches": [
-            "http://nfce.sefaz.pe.gov.br/nfce-web/consNfce",
-            "http://nfce.sefaz.pe.gov.br/nfce-web/consultarNFCe*",
-            "http://nfce.sefaz.pe.gov.br/nfce/consulta*"
+            "https://nfce.sefaz.pe.gov.br/nfce-web/consNfce",
+            "https://nfce.sefaz.pe.gov.br/nfce-web/consultarNFCe*",
+            "https://nfce.sefaz.pe.gov.br/nfce/consulta*"
         ],
         "js": ["jquery-3.6.4.min.js", "formatar.js"]
       },
       {
         "matches": [
-            "http://nfce.sefaz.pe.gov.br/nfce-web/consNfce?tp=C*"
+            "https://nfce.sefaz.pe.gov.br/nfce-web/consNfce?tp=C*"
         ],
         "js": ["jquery-3.6.4.min.js", "formatarComplete.js"]
       }
